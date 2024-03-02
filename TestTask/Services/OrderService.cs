@@ -1,22 +1,27 @@
-﻿using TestTask.Models;
+﻿using TestTask.Data;
+using TestTask.Models;
 using TestTask.Services.Interfaces;
 
 namespace TestTask.Services
 {
     public class OrderService : IOrderService
     {
-        public OrderService()
+        private readonly ApplicationDbContext dbContext;
+
+        public OrderService(ApplicationDbContext dbContext)
         {
-                
+            this.dbContext = dbContext;
         }
         public Task<Order> GetOrder()
         {
-            throw new NotImplementedException();
+            var order = this.dbContext.Orders.OrderByDescending(o=> o.Price).First();
+            return Task.FromResult(order);
         }
 
         public Task<List<Order>> GetOrders()
         {
-            throw new NotImplementedException();
+            var orders = this.dbContext.Orders.Where(o => o.Quantity > 10).ToList();
+            return Task.FromResult(orders);
         }
     }
 }
