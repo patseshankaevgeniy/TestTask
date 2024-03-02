@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using TestTask;
 using TestTask.Data;
-using TestTask.Services.Implementations;
+using TestTask.Services;
 using TestTask.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IOrderService, OrderService>()
