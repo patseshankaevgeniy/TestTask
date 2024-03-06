@@ -16,6 +16,10 @@ namespace TestTask.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<User>().HasMany(user => user.Orders).WithOne(o=> o.User);
+            
+
             modelBuilder.Entity<User>().HasData(
                 new[]
                 {
